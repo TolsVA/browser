@@ -1,12 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">browser</string>
     <string name="go">go</string>
     <string name="calculator">calc://launch</string>
-    <string name="name_calculator">Calculator</string>
+    <string name="name_calculator">Калькулятор</string>
     <string name="interpreter">https://translate.google.com</string>
-    <string name="name_interpreter">Interpreter</string>
-    <string name="movies">https://yandex.ru/search/?text=movies</string>
-    <string name="name_movies">Movies</string>
+    <string name="name_interpreter">Google Переводчик</string>
+    <string name="movies">https://yandex.ru/search/?text=фильмы</string>
+    <string name="name_movies">Yandex фильмы</string>
     <string name="google">https://www.google.ru</string>
     <string name="name_google">Google</string>
 </resources>
