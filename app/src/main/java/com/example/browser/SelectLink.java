@@ -30,15 +30,12 @@ public class SelectLink extends AppCompatActivity {
         for (Link link: Link.values()) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_link, linkContainer, false);
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent data = new Intent();
-                    data.putExtra(EXTRA_LINK, link);
-                    setResult(Activity.RESULT_OK, data);
-                    finish();
-                }
-            });
+            view.setOnClickListener( view1 -> {
+                Intent data = new Intent();
+                data.putExtra(EXTRA_LINK, link);
+                setResult(Activity.RESULT_OK, data);
+                finish();
+            } );
 
             TextView linkItemTitle = view.findViewById(R.id.link_item);
             linkItemTitle.setText(link.getName());

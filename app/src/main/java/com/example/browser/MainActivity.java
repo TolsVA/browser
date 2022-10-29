@@ -18,18 +18,15 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            EditText editText = findViewById(R.id.editText);
-            if (result.getResultCode() == Activity.RESULT_OK) {
-                assert result.getData() != null;
-                Link link = (Link) result.getData().getSerializableExtra(SelectLink.EXTRA_LINK);
-                editText.setText(link.getLink());
-                recreate();
-            }
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        EditText editText = findViewById(R.id.editText);
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            assert result.getData() != null;
+            Link link = (Link) result.getData().getSerializableExtra(SelectLink.EXTRA_LINK);
+            editText.setText(link.getLink());
+            recreate();
         }
-    });
+    } );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,27 +35,21 @@ public class MainActivity extends AppCompatActivity {
 
         final EditText site = findViewById(R.id.editText);
 
-        findViewById(R.id.editText).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SelectLink.class);
-                intent.putExtra(SelectLink.EXTRA_LINK, site.getText());
-                launcher.launch(intent);
-            }
-        });
+        site.setOnClickListener( v -> {
+            Intent intent = new Intent(MainActivity.this, SelectLink.class);
+            intent.putExtra(SelectLink.EXTRA_LINK, site.getText());
+            launcher.launch(intent);
+        } );
 
         EditText site2 = findViewById(R.id.editText2);
 
         Button go = findViewById(R.id.button);
-        go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = site.getText().toString();
-                Uri uri = Uri.parse(url);
-                Intent browser = new Intent(Intent.ACTION_VIEW, uri);
-                browser.putExtra("hello", String.valueOf(site2.getText()));
-                launcher.launch(Intent.createChooser(browser, ""));
-            }
-        });
+        go.setOnClickListener( v -> {
+            String url = site.getText().toString();
+            Uri uri = Uri.parse(url);
+            Intent browser = new Intent(Intent.ACTION_VIEW, uri);
+            browser.putExtra("hello", String.valueOf(site2.getText()));
+            launcher.launch(Intent.createChooser(browser, ""));
+        } );
     }
 }
